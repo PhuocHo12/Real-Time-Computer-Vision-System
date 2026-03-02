@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Camera Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 10px;
+      padding: 10px;
+    }
+    .camera {
+      position: relative;
+      background: #000;
+    }
+    .camera span {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+    img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const ws = new WebSocket(
+  (location.protocol === "https:" ? "wss://" : "ws://")
+  + location.host
+  + "/ws"
+);
+const grid = document.getElementById("grid");
+const images = {};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  const camId = data.camera_id;
+  const imgData = "data:image/jpeg;base64," + data.image;
+
+  if (!images[camId]) {
+    const box = document.createElement("div");
+    box.className = "camera";
+
+    const label = document.createElement("span");
+    label.innerText = camId;
+
+    const img = document.createElement("img");
+    img.id = camId;
+
+    box.appendChild(label);
+    box.appendChild(img);
+    grid.appendChild(box);
+
+    images[camId] = img;
+  }
+
+  images[camId].src = imgData;
+};
+
+ws.onopen = () => console.log("WebSocket connected");
+ws.onclose = () => console.log("WebSocket closed");
+ws.onerror = (e) => console.error("WebSocket error", e);
+</script>
+
+</body>
+</html>

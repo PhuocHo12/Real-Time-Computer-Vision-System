@@ -1,0 +1,13 @@
+tracking:
+  enabled: false 
+  type: bytetrack
+detector:
+  model_path: yolo26n.pt
+  classes: configs/classes.yaml
+input:
+  type: rtsp   # image | video | rtsp
+
+cameras:
+  - camera_id: cam1
+    source: 0
+    fps_limit: 15

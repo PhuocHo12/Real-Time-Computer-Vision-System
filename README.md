@@ -4,7 +4,6 @@ A production-oriented real-time computer vision platform for processing video st
 
 This project is designed as a **reference implementation** of how real-world camera AI systems are architected, focusing on performance, modularity, and deployability rather than business-specific logic.
 
----
 
 ## 📌 Overview
 
@@ -16,23 +15,38 @@ Key goals of this project:
 - Showcase performance-aware engineering decisions
 - Provide a clean, extensible architecture suitable for production systems
 
----
 
 ## 🧠 System Architecture
+```mermaid
+flowchart TD
+    A["Video Source 
+    (Webcam - RTSP)"]
+    B["Frame Capture 
+    (OpenCV)"]
+    C["Preprocessing
+    (Resize, Normalize)"]
+    D["YOLO
+    (Inference PyTorch, ONNX Runtime)"]
+    E["Tracker 
+    (SORT / ByteTrack)"]
+    F["Tracked objects 
+    (ID, bbox, class)"]
+    G["Post-processing 
+    (NMS, Threshold)"]
+    H["FastAPI 
+    (REST, WebSocket)"]
 
-| Stage | Component |
-|------|----------|
-| Input | Video Source (Webcam / RTSP) |
-| Capture | OpenCV Frame Capture |
-| Processing | Resize, Normalize |
-| Inference | YOLO (PyTorch / ONNX Runtime) |
-| Post-processing | NMS, Confidence Threshold |
-| API | FastAPI (REST / WebSocket) |
-
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+  ```
 
 The system is modular by design, allowing individual components (video input, inference backend, API layer) to be swapped or extended independently.
 
----
 
 ## ✨ Key Features
 
@@ -64,7 +78,6 @@ This project intentionally supports multiple inference backends to highlight per
 
 Model export to ONNX is handled via a dedicated script.
 
----
 
 ## 📊 Benchmarks
 
@@ -81,7 +94,6 @@ Basic latency and FPS benchmarks are included to compare inference backends.
 Detailed results can be found in:  
 `benchmarks/latency_results.md`
 
----
 
 ## 🧪 Supported Inputs
 
@@ -91,7 +103,6 @@ Detailed results can be found in:
 
 Input source can be changed via configuration.
 
----
 
 ## 🌐 API Interface
 
@@ -105,7 +116,6 @@ Input source can be changed via configuration.
 
 The API layer is built with FastAPI and designed for async, non-blocking workloads.
 
----
 
 ## 🐳 Running with Docker
 
@@ -165,3 +175,6 @@ It does not contain proprietary code, datasets, or business logic from any previ
 AI Engineer focused on real-time computer vision systems, ML optimization, and production deployment.
 
 If you’re a recruiter or engineer reviewing this project, feel free to reach out via GitHub or LinkedIn.
+
+
+
