@@ -1,7 +1,2 @@
-#Ignore model's file
-*.onnx
-*.pt
 #Ignore .env file to secure important information 
 *.env
-#Have pyproject.toml, ignore .venv to avoid heavy repo
-.venv
