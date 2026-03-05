@@ -114,7 +114,58 @@ Input source can be changed via configuration.
 - Real-time streaming inference
 - Suitable for dashboards or monitoring tools
 
-The API layer is built with FastAPI and designed for async, non-blocking workloads.
+## 🧪 Run Locally (Development Setup with `uv`)
+
+This project uses `` for fast and reproducible Python environment management.
+
+### 1️⃣ Prerequisites
+
+- Python **3.10+**
+- `uv` installed
+
+Install `uv`:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Restart your terminal after installation.
+
+---
+
+### 2️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/PhuocHo12/Real-Time-Computer-Vision-System.git
+cd Real-Time-Computer-Vision-System
+```
+
+---
+
+### 3️⃣ Create Virtual Environment & Install Dependencies
+
+```bash
+uv venv
+source .venv/bin/activate
+uv sync
+```
+
+This will:
+
+- Create a virtual environment
+- Install dependencies from `pyproject.toml`
+- Use lockfile-based resolution for reproducibility
+
+---
+
+### 4️⃣ Run the API Server
+
+```bash
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+## 🎥 Demo Preview
+
+![Demo Preview](demo/demo.gif)
 
 
 ## 🐳 Running with Docker
